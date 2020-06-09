@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -12,12 +13,27 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 
+/** HockeyEngine**/
+import { DatabaseService } from './services/database.service'
+
+/** LocalForage **/
+import * as localForage from "localforage";
+import { PlayerListComponent } from './components/player-list/player-list.component';
+import { PlayerComponent } from './components/player/player.component';
+import { TeamListComponent } from './components/team-list/team-list.component';
+import { TeamComponent } from './components/team/team.component';
+
 @NgModule({
 	declarations: [
-		AppComponent
+		AppComponent,
+		PlayerListComponent,
+		PlayerComponent,
+		TeamListComponent,
+		TeamComponent
 	],
 	imports: [
 		BrowserModule,
+		HttpClientModule,
 		BrowserAnimationsModule,
 		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 
@@ -27,7 +43,13 @@ import { MatButtonModule } from '@angular/material/button';
 		MatToolbarModule,
 		MatButtonModule
 	],
-	providers: [],
+	providers: [
+		DatabaseService
+	],
 	bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+	constructor() {}
+
+}

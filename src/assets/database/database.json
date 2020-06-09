@@ -1,0 +1,18 @@
+{
+	"team": [
+		{
+			"city": "Philadelphia",
+			"name": "Flyers",
+			"displayName": "Philadelphia Flyers"
+		}
+	],
+	"player": [
+		{
+			"firstName": "Claude",
+			"lastName": "Giroux",
+			"number": 28
+		}
+	],
+	"coach": [],
+	"stadium": []
+}
