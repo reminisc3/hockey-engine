@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { NhlApiService } from './services/nhl-api.service';
 import { DatabaseService } from './services/database.service';
+import { Team } from './classes/team';
 
 @Component({
 	selector: 'app-root',
@@ -8,11 +10,20 @@ import { DatabaseService } from './services/database.service';
 })
 export class AppComponent {
 
+	teams: Team[] = [];
 	title = 'Hockey Engine';
 
-	constructor(private db: DatabaseService) {
+	constructor(private nhlApi: NhlApiService, private db: DatabaseService) {
+
+		this.nhlApi.getTeams().subscribe(data => {
+			this.teams = data['teams'] || [];
+			this.teams.sort((a,b) => {
+				return (a.name < b.name) ? -1 : 1;
+			});
+		});
 
 	}
+
 	ngOnInit() {
 
 	}

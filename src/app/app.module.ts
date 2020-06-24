@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,13 +9,14 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
 /** Material UI **/
+import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 
 /** HockeyEngine**/
-import { DatabaseService } from './services/database.service'
+import { DatabaseService } from './services/database.service';
 
 /** LocalForage **/
 import * as localForage from "localforage";
@@ -41,7 +43,11 @@ import { TeamComponent } from './components/team/team.component';
 		MatMenuModule,
 		MatIconModule,
 		MatToolbarModule,
-		MatButtonModule
+		MatButtonModule,
+		MatTableModule,
+
+		/** Routing **/
+		AppRoutingModule
 	],
 	providers: [
 		DatabaseService
@@ -50,6 +56,6 @@ import { TeamComponent } from './components/team/team.component';
 })
 export class AppModule {
 
-	constructor() {}
+	constructor() { }
 
 }

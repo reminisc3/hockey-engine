@@ -1,18 +1,37 @@
 {
 	"team": [
 		{
+			"id": "flyers",
 			"city": "Philadelphia",
+			"state": "PA",
 			"name": "Flyers",
 			"displayName": "Philadelphia Flyers"
 		}
 	],
 	"player": [
 		{
+			"id": "",
 			"firstName": "Claude",
 			"lastName": "Giroux",
-			"number": 28
+			"number": 28,
+			"position": "C",
+			"height": 71,
+			"weight": 185,
+			"birthDate": "1988-01-11",
+			"birthPlace": "Hearst, Ont, Canada",
+			"shoots": "R",
+			"captain": true
 		}
 	],
-	"coach": [],
+	"coach": [
+		{
+			"id": "",
+			"firstName": "Alain",
+			"lastName": "Vigneault",
+			"position": "Head Coach",
+			"birthDate": "1961-05-14",
+			"teamId": ""
+		}
+	],
 	"stadium": []
 }

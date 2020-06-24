@@ -1,16 +1,39 @@
+import { Position } from './position';
+
 export class Player {
+	id: number;
+	teamId?: number;
+	active: boolean;
+	fullName: string;
+	link?: string;
 	firstName: string;
 	lastName: string;
-	dateOfBirth: Date;
-	age: number;
-	position: string;
-	teamId: number;
-	totalCups: number;
-	morale: number;
-	star: boolean;
-	potential: number;
-	attributes: {
+	primaryNumber: number|string;
+	birthDate: Date|string;
+	currentAge: number;
+	birthCity: string;
+	birthStateProvince: string;
+	birthCountry: string;
+	nationality: string;
+	height: number|string;
+	weight: number;
+	alternateCaptain: boolean;
+	captain: boolean;
+	rookie: boolean;
+	shootsCatches: string;
+	rosterStatus: string|boolean;
+	currentTeam?: {
+		id: number;
+		name: string;
+		link?: string;
+	};
+	primaryPosition: Position;
+	totalCups?: number;
+	morale?: number;
+	star?: boolean;
+	attributes?: {
 		overall: number;
+		potential: number;
 		offense: number;
 		defense: number;
 		faceoffs: number;
@@ -20,5 +43,8 @@ export class Player {
 		shooting: number;
 		passing: number;
 		stickHandling: number;
+	}
+	constructor() {
+
 	}
 }

@@ -1,1 +1,14 @@
-<p>team-list works!</p>
+<table mat-table [dataSource]="teams" class="mat-elevation-z8">
+
+	<!-- Team Name column -->
+	<ng-container matColumnDef="teamName">
+		<mat-header-cell *matHeaderCellDef> Team Name </mat-header-cell>
+		<mat-cell *matCellDef="let element">
+			<a [routerLink]="['/team', element.id]">{{element.name}}</a>
+		</mat-cell>
+	</ng-container>
+
+	<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+	<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+</table>

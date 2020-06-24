@@ -4,18 +4,23 @@
 
 <button mat-button [matMenuTriggerFor]="teamsMenu">Teams</button>
 <mat-menu #teamsMenu="matMenu">
-  <button mat-menu-item>Teams 1</button>
-  <button mat-menu-item>Teams 2</button>
+  <button mat-menu-item *ngFor="let team of teams" [routerLink]="['/team', team.id]">{{team.name}}</button>
 </mat-menu>
 
 <button mat-button [matMenuTriggerFor]="playersMenu">Players</button>
 <mat-menu #playersMenu="matMenu">
+	<!--
   <button mat-menu-item>Players 1</button>
   <button mat-menu-item>Players 2</button>
+	-->
 </mat-menu>
 
 <button mat-button [matMenuTriggerFor]="coachesMenu">Coaches</button>
 <mat-menu #coachesMenu="matMenu">
+	<!--
   <button mat-menu-item>Coaches 1</button>
   <button mat-menu-item>Coaches 2</button>
+	-->
 </mat-menu>
+
+<router-outlet></router-outlet>

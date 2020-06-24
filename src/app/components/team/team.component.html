@@ -1,1 +1,30 @@
-<p>team works!</p>
+<table mat-table [dataSource]="players" class="mat-elevation-z8">
+
+	<!-- Player Name column -->
+	<ng-container matColumnDef="playerName">
+		<mat-header-cell *matHeaderCellDef> Player Name </mat-header-cell>
+		<mat-cell *matCellDef="let element">
+			<a [routerLink]="['/player', element.person.id]">{{element.person.fullName}}</a>
+		</mat-cell>
+	</ng-container>
+
+	<!-- Player Position column -->
+	<ng-container matColumnDef="playerPos">
+		<mat-header-cell *matHeaderCellDef> Position </mat-header-cell>
+		<mat-cell *matCellDef="let element">
+			{{element.position.code}}
+		</mat-cell>
+	</ng-container>
+
+	<!-- Player Position column -->
+	<ng-container matColumnDef="playerJersey">
+		<mat-header-cell *matHeaderCellDef> Number </mat-header-cell>
+		<mat-cell *matCellDef="let element">
+			{{element.jerseyNumber}}
+		</mat-cell>
+	</ng-container>
+
+	<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+	<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+</table>
