@@ -18,8 +18,6 @@ import { MatButtonModule } from '@angular/material/button';
 /** HockeyEngine**/
 import { DatabaseService } from './services/database.service';
 
-/** LocalForage **/
-import * as localForage from "localforage";
 import { PlayerListComponent } from './components/player-list/player-list.component';
 import { PlayerComponent } from './components/player/player.component';
 import { TeamListComponent } from './components/team-list/team-list.component';
