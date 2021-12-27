@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NhlApiService } from '../../services/nhl-api.service';
-import { Team } from '../../classes/team';
+import { Team } from '../../models/team';
 
 @Component({
 	selector: 'app-team-list',

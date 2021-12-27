@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NhlApiService } from './services/nhl-api.service';
 import { DatabaseService } from './services/database.service';
-import { Team } from './classes/team';
+import { Team } from './models/models';
 
 @Component({
 	selector: 'app-root',

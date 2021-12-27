@@ -24,36 +24,36 @@ import { TeamListComponent } from './components/team-list/team-list.component';
 import { TeamComponent } from './components/team/team.component';
 
 @NgModule({
-	declarations: [
-		AppComponent,
-		PlayerListComponent,
-		PlayerComponent,
-		TeamListComponent,
-		TeamComponent
-	],
-	imports: [
-		BrowserModule,
-		HttpClientModule,
-		BrowserAnimationsModule,
-		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+  declarations: [
+    AppComponent,
+    PlayerListComponent,
+    PlayerComponent,
+    TeamListComponent,
+    TeamComponent
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 
-		/** Material UI Imports **/
-		MatMenuModule,
-		MatIconModule,
-		MatToolbarModule,
-		MatButtonModule,
-		MatTableModule,
+    /** Material UI Imports **/
+    MatMenuModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatTableModule,
 
-		/** Routing **/
-		AppRoutingModule
-	],
-	providers: [
-		DatabaseService
-	],
-	bootstrap: [AppComponent]
+    /** Routing **/
+    AppRoutingModule
+  ],
+  providers: [
+    DatabaseService
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 
-	constructor() { }
+  constructor() { }
 
 }
