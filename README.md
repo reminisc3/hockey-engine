@@ -13,3 +13,8 @@ TBD
 ## Serverless Database
 
 This project aims to use IndexedDB as a NoSQL solution to store all application data. This means that you can "play" from anywhere using any supported browser.
+
+## Credits
+
+Special thanks to dword4 for documenting the NHL REST APIs:
+https://gitlab.com/dword4/nhlapi
