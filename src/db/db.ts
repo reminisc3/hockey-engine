@@ -1,25 +1,29 @@
-// db.ts
 import Dexie, { Table } from 'dexie';
+import * as dataModel from '../app/models/models'
 
+export class HockeyEngineDB extends Dexie {
 
-//Models
-import {*} from '../app/classes/models'
-
-export class AppDB extends Dexie {
-
-  players!: Table<Player, number>;
+  players!: Table<dataModel.Player, number>;
+  teams!: Table<dataModel.Team, number>;
+  coaches!: Table<dataModel.Coach, number>;
+  divisions!: Table<dataModel.Division, number>;
 
   constructor() {
-    super('ngdexieliveQuery');
-    this.version(3).stores({
-      players: '++id'
+
+    super('HockeyEngine');
+    this.version(1).stores({
+      players: '++id',
+      teams: '++id',
+      coaches: '++id',
+      divisions: '++id'
     });
+
     this.on('populate', () => this.populate());
+
   }
 
   async populate() {
 
   }
-}
 
-export const db = new AppDB();
+}
