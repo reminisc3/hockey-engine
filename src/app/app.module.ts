@@ -9,6 +9,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
 /** Material UI **/
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 /** HockeyEngine**/
 import { DatabaseService } from './services/database.service';
+import { NhlApiService } from './services/nhl-api.service';
 
 import { PlayerListComponent } from './components/player-list/player-list.component';
 import { PlayerComponent } from './components/player/player.component';
@@ -38,6 +40,7 @@ import { TeamComponent } from './components/team/team.component';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 
     /** Material UI Imports **/
+    FlexLayoutModule,
     MatMenuModule,
     MatIconModule,
     MatToolbarModule,
@@ -48,7 +51,8 @@ import { TeamComponent } from './components/team/team.component';
     AppRoutingModule
   ],
   providers: [
-    DatabaseService
+    DatabaseService,
+    NhlApiService
   ],
   bootstrap: [AppComponent]
 })
