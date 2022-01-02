@@ -8,6 +8,20 @@
 		</mat-cell>
 	</ng-container>
 
+	<ng-container matColumnDef="conference">
+		<mat-header-cell *matHeaderCellDef> Conference </mat-header-cell>
+		<mat-cell *matCellDef="let element">
+			{{element.conference.name}}
+		</mat-cell>
+	</ng-container>
+
+	<ng-container matColumnDef="division">
+		<mat-header-cell *matHeaderCellDef> Division </mat-header-cell>
+		<mat-cell *matCellDef="let element">
+			{{element.division.name}}
+		</mat-cell>
+	</ng-container>
+
 	<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 	<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 

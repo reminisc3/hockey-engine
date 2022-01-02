@@ -1,31 +1,38 @@
 import { Component } from '@angular/core';
-import { NhlApiService } from './services/nhl-api.service';
 import { DatabaseService } from './services/database.service';
-import { Team } from './models/models';
 
 @Component({
-	selector: 'app-root',
-	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.scss']
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
 
-	teams: Team[] = [];
-	title = 'Hockey Engine';
+  title = 'Hockey Engine';
 
-	constructor(private nhlApi: NhlApiService, private db: DatabaseService) {
+  constructor(private db: DatabaseService) {
 
-		this.nhlApi.getTeams().subscribe(data => {
-			this.teams = data['teams'] || [];
-			this.teams.sort((a,b) => {
-				return (a.name < b.name) ? -1 : 1;
-			});
-		});
+    //Seed Teams from NHL API
+    db.getTeams().then(teams => {
+      if (teams.length == 0) {
+        db.seedTeams();
+      }
+    });
 
-	}
+    //Seed Players from NHL API
+    db.seedPlayers();
 
-	ngOnInit() {
+  }
 
-	}
+  exportDatabase() {
+    this.db.export().then(blob => {
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+    });
+  }
+
+  ngOnInit() {
+
+  }
 
 }

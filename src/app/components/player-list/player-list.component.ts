@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DatabaseService } from '../../services/database.service';
+import { NhlApiService } from '../../services/nhl-api.service';
+import { Player } from '../../models/player';
 
 @Component({
   selector: 'app-player-list',
@@ -7,9 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlayerListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dbService: DatabaseService, private nhlService: NhlApiService) { }
 
   ngOnInit(): void {
+    
   }
 
 }

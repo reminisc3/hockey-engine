@@ -1,15 +1,28 @@
-<mat-toolbar>
-  <span>HockeyEngine - NHL hockey simulation app</span>
+<mat-toolbar fxLayout="row" fxLayoutAlign="start center">
+  <div fxLayout="row" fxLayoutAlign="start center" fxFlex>
+    <button mat-icon-button aria-label="App Menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>HockeyEngine - NHL hockey simulation app</span>
+  </div>
+  <div>
+    <button mat-icon-button aria-label="Quick Menu" [matMenuTriggerFor]="appQuickMenu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #appQuickMenu="matMenu">
+      <button (click)="exportDatabase()" mat-menu-item>
+        <mat-icon>download</mat-icon>
+        <span>Export Database</span>
+      </button>
+    </mat-menu>
+  </div>
 </mat-toolbar>
 
-<button mat-button [matMenuTriggerFor]="teamsMenu">Teams</button>
-<mat-menu #teamsMenu="matMenu">
-  <button mat-menu-item *ngFor="let team of teams" [routerLink]="['/team', team.id]">{{team.name}}</button>
-</mat-menu>
+<button mat-button [routerLink]="['/teams']">Teams</button>
 
 <button mat-button [matMenuTriggerFor]="playersMenu">Players</button>
 <mat-menu #playersMenu="matMenu">
-	<!--
+  <!--
   <button mat-menu-item>Players 1</button>
   <button mat-menu-item>Players 2</button>
 	-->
@@ -17,7 +30,7 @@
 
 <button mat-button [matMenuTriggerFor]="coachesMenu">Coaches</button>
 <mat-menu #coachesMenu="matMenu">
-	<!--
+  <!--
   <button mat-menu-item>Coaches 1</button>
   <button mat-menu-item>Coaches 2</button>
 	-->

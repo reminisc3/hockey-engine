@@ -1,6 +1,11 @@
 import { Position } from './position';
 
 export class Player {
+	person?: {
+		id: number|string,
+		fullName: string,
+		link?: string
+	};
 	id: number;
 	teamId?: number;
 	active: boolean;
@@ -9,6 +14,7 @@ export class Player {
 	firstName: string;
 	lastName: string;
 	primaryNumber: number|string;
+	jerseyNumber: number|string;
 	birthDate: Date|string;
 	currentAge: number;
 	birthCity: string;
@@ -43,7 +49,8 @@ export class Player {
 		shooting: number;
 		passing: number;
 		stickHandling: number;
-	}
+	};
+	
 	constructor() {
 
 	}

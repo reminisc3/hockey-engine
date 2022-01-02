@@ -12,10 +12,10 @@ export class HockeyEngineDB extends Dexie {
 
     super('HockeyEngine');
     this.version(1).stores({
-      players: '++id',
-      teams: '++id',
-      coaches: '++id',
-      divisions: '++id'
+      players: 'id,teamId,lastName',
+      teams: 'id,teamName,name',
+      coaches: 'id,lastName',
+      divisions: 'id'
     });
 
     this.on('populate', () => this.populate());

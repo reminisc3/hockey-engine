@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NhlApiService } from '../../services/nhl-api.service';
+import { DatabaseService } from '../../services/database.service';
 import { Team } from '../../models/team';
 
 @Component({
@@ -10,19 +10,21 @@ import { Team } from '../../models/team';
 export class TeamListComponent implements OnInit {
 
 	teams: Team[] = [];
-	displayedColumns: string[] = ['teamName'];
+	displayedColumns: string[] = ['teamName', 'conference', 'division'];
 
-	constructor(private nhlApi: NhlApiService) { }
+	constructor(private dbService: DatabaseService) { }
 
 	ngOnInit(): void {
 
-		this.nhlApi.getTeams().subscribe(data => {
-			this.teams = data['teams'] || [];
-			this.teams.sort((a,b) => {
-				return (a.name < b.name) ? -1 : 1;
-			});
+		this.getTeams().then(teams => {
+			this.teams = teams;
+			console.warn(teams);
 		});
 
+	}
+
+	getTeams(): Promise<Team[]> {
+		return this.dbService.getTeams();
 	}
 
 }
