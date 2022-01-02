@@ -1,0 +1,26 @@
+.app-mobile .app {
+  position: fixed;
+  z-index: 2;
+}
+
+.app-container {
+  height: 100%;
+  width: 100%;
+}
+
+.app-sidenav-container {
+  flex: 1;
+}
+
+.app-mobile .app-sidenav-container {
+  flex: 1 0 auto;
+}
+
+mat-toolbar {
+  max-width: 100%;
+
+  .app-title {
+    text-overflow: ellipsis;
+  }
+
+}

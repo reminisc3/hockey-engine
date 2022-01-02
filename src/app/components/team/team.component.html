@@ -4,7 +4,7 @@
 	<ng-container matColumnDef="playerName">
 		<mat-header-cell *matHeaderCellDef> Player Name </mat-header-cell>
 		<mat-cell *matCellDef="let element">
-			<a [routerLink]="['/player', element.person.id]">{{element.person.fullName}}</a>
+			<a [routerLink]="['/player', element.id]">{{element.fullName}}</a>
 		</mat-cell>
 	</ng-container>
 
@@ -12,7 +12,7 @@
 	<ng-container matColumnDef="playerPos">
 		<mat-header-cell *matHeaderCellDef> Position </mat-header-cell>
 		<mat-cell *matCellDef="let element">
-			{{element.position.code}}
+			{{element.primaryPosition.code}}
 		</mat-cell>
 	</ng-container>
 
@@ -20,7 +20,23 @@
 	<ng-container matColumnDef="playerJersey">
 		<mat-header-cell *matHeaderCellDef> Number </mat-header-cell>
 		<mat-cell *matCellDef="let element">
-			{{element.jerseyNumber}}
+			{{element.primaryNumber}}
+		</mat-cell>
+	</ng-container>
+
+	<!-- Player Position column -->
+	<ng-container matColumnDef="playerAge">
+		<mat-header-cell *matHeaderCellDef> Age </mat-header-cell>
+		<mat-cell *matCellDef="let element">
+			{{element.currentAge}}
+		</mat-cell>
+	</ng-container>
+
+	<!-- Player Position column -->
+	<ng-container matColumnDef="playerShoots">
+		<mat-header-cell *matHeaderCellDef> Shoots </mat-header-cell>
+		<mat-cell *matCellDef="let element">
+			{{element.shootsCatches}}
 		</mat-cell>
 	</ng-container>
 

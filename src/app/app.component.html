@@ -1,39 +1,46 @@
-<mat-toolbar fxLayout="row" fxLayoutAlign="start center">
-  <div fxLayout="row" fxLayoutAlign="start center" fxFlex>
-    <button mat-icon-button aria-label="App Menu">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>HockeyEngine - NHL hockey simulation app</span>
-  </div>
-  <div>
-    <button mat-icon-button aria-label="Quick Menu" [matMenuTriggerFor]="appQuickMenu">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #appQuickMenu="matMenu">
-      <button (click)="exportDatabase()" mat-menu-item>
-        <mat-icon>download</mat-icon>
-        <span>Export Database</span>
+<div class="app-container" fxLayout="column" fxFlexFill [class.app-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="app-toolbar" fxLayout="row" fxLayoutAlign="start center">
+    <div fxLayout="row" fxLayoutAlign="start center" fxFlex>
+      <button mat-icon-button aria-label="App Menu" (click)="appSideNav.toggle()">
+        <mat-icon>menu</mat-icon>
       </button>
-    </mat-menu>
-  </div>
-</mat-toolbar>
-
-<button mat-button [routerLink]="['/teams']">Teams</button>
-
-<button mat-button [matMenuTriggerFor]="playersMenu">Players</button>
-<mat-menu #playersMenu="matMenu">
-  <!--
-  <button mat-menu-item>Players 1</button>
-  <button mat-menu-item>Players 2</button>
-	-->
-</mat-menu>
-
-<button mat-button [matMenuTriggerFor]="coachesMenu">Coaches</button>
-<mat-menu #coachesMenu="matMenu">
-  <!--
-  <button mat-menu-item>Coaches 1</button>
-  <button mat-menu-item>Coaches 2</button>
-	-->
-</mat-menu>
-
-<router-outlet></router-outlet>
+      <span class="app-title">{{title}}</span>
+    </div>
+    <div>
+      <button mat-icon-button aria-label="Search">
+        <mat-icon>search</mat-icon>
+      </button>
+      <button mat-icon-button aria-label="Quick Menu" [matMenuTriggerFor]="appQuickMenu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #appQuickMenu="matMenu">
+        <button (click)="exportDatabase()" mat-menu-item>
+          <mat-icon>download</mat-icon>
+          <span>Export Database</span>
+        </button>
+      </mat-menu>
+    </div>
+  </mat-toolbar>
+  <mat-sidenav-container class="app-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #appSideNav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <mat-nav-list>
+        <h3 matSubheader>Menu</h3>
+        <a mat-list-item routerLink="/">
+          <mat-icon matListIcon>home</mat-icon>
+          <h4 matLine>Home</h4>
+        </a>
+        <a mat-list-item routerLink="/teams">
+          <mat-icon matListIcon>groups</mat-icon>
+          <h4 matLine>Teams</h4>
+        </a>
+        <a mat-list-item routerLink="/players">
+          <mat-icon matListIcon>person</mat-icon>
+          <h4 matLine>Players</h4>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

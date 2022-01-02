@@ -11,6 +11,8 @@ export class Player {
 	active: boolean;
 	fullName: string;
 	link?: string;
+	imageUrl?: string;
+	actionImageUrl?: string;
 	firstName: string;
 	lastName: string;
 	primaryNumber: number|string;
@@ -50,7 +52,7 @@ export class Player {
 		passing: number;
 		stickHandling: number;
 	};
-	
+
 	constructor() {
 
 	}

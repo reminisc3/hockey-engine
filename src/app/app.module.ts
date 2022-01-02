@@ -15,15 +15,19 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 /** HockeyEngine**/
 import { DatabaseService } from './services/database.service';
 import { NhlApiService } from './services/nhl-api.service';
+import { SearchService } from './services/search.service';
 
 import { PlayerListComponent } from './components/player-list/player-list.component';
 import { PlayerComponent } from './components/player/player.component';
 import { TeamListComponent } from './components/team-list/team-list.component';
 import { TeamComponent } from './components/team/team.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,8 @@ import { TeamComponent } from './components/team/team.component';
     PlayerListComponent,
     PlayerComponent,
     TeamListComponent,
-    TeamComponent
+    TeamComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -46,19 +51,22 @@ import { TeamComponent } from './components/team/team.component';
     MatToolbarModule,
     MatButtonModule,
     MatTableModule,
+    MatSidenavModule,
+    MatListModule,
 
     /** Routing **/
     AppRoutingModule,
-     ServiceWorkerModule.register('ngsw-worker.js', {
-       enabled: environment.production,
-       // Register the ServiceWorker as soon as the app is stable
-       // or after 30 seconds (whichever comes first).
-       registrationStrategy: 'registerWhenStable:30000'
-     })
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     DatabaseService,
-    NhlApiService
+    NhlApiService,
+    SearchService
   ],
   bootstrap: [AppComponent]
 })

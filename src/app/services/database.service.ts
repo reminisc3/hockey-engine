@@ -37,6 +37,10 @@ export class DatabaseService {
     }) as HockeyEngineDB;
   }
 
+  rebuildDatabase() {
+
+  }
+
   seedTeams() {
     this.nhlService.getTeams().subscribe(teams => {
       this.db.teams.bulkPut(teams);
@@ -69,6 +73,9 @@ export class DatabaseService {
         return this.nhlService.getPlayer(personId)
       })
     ).subscribe(player => {
+      player.teamId = player.teamId || player.currentTeam.id;
+      player.imageUrl = 'https://cms.nhl.bamgrid.com/images/headshots/current/168x168/' + player.id + '.jpg';
+      player.actionImageUrl = 'https://cms.nhl.bamgrid.com/images/actionshots/' + player.id + '.jpg';
       this.db.players.put(player).then(result => {
         console.log('Added ' + player.fullName + ' to database');
       })
@@ -81,6 +88,10 @@ export class DatabaseService {
 
   getTeams(): Promise<dataModel.Team[]> {
     return this.db.teams.orderBy('name').toArray();
+  }
+
+  getRoster(teamId: number|string): Promise<dataModel.Player[]> {
+    return this.db.players.where({teamId: teamId}).sortBy('lastName');
   }
 
 }

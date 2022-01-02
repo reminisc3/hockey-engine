@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap, Params } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Player } from '../../models/player';
-import { NhlApiService } from '../../services/nhl-api.service';
+import { DatabaseService } from '../../services/database.service';
 
 @Component({
 	selector: 'app-team',
@@ -13,11 +13,11 @@ export class TeamComponent implements OnInit {
 
 	teamId: number;
 	players: Player[] = [];
-	displayedColumns: string[] = ['playerName', 'playerPos', 'playerJersey'];
+	displayedColumns: string[] = ['playerName', 'playerPos', 'playerJersey', 'playerAge', 'playerShoots'];
 
 	constructor(
 		private route: ActivatedRoute,
-		private nhlApi: NhlApiService
+		private dbService: DatabaseService
 	) { }
 
 	ngOnInit(): void {
@@ -31,9 +31,8 @@ export class TeamComponent implements OnInit {
 
 	loadPlayers(): void {
 
-		this.nhlApi.getRoster(this.teamId).subscribe(data => {
-			this.players = data['roster'] || [];
-			console.warn(this.players);
+		this.dbService.getRoster(this.teamId).then(players => {
+			this.players = players;
 		});
 
 	}
