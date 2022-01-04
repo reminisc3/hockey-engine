@@ -6,7 +6,7 @@
       </button>
       <span class="app-title">{{title}}</span>
     </div>
-    <div class="header-search-container" *ngIf="searchEnabled">
+    <div class="header-search-container" *ngIf="searchEnabled" fxFlex="50">
       <mat-form-field appearance="fill">
         <input type="text" placeholder="Search for teams, players, and more" matInput [formControl]="searchControl" [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete">
@@ -38,6 +38,10 @@
         <a mat-list-item routerLink="/">
           <mat-icon matListIcon>home</mat-icon>
           <h4 matLine>Home</h4>
+        </a>
+        <a mat-list-item routerLink="/franchise">
+          <mat-icon matListIcon>emoji_events</mat-icon>
+          <h4 matLine>Franchise Mode</h4>
         </a>
         <a mat-list-item routerLink="/teams">
           <mat-icon matListIcon>groups</mat-icon>

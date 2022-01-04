@@ -32,6 +32,9 @@ import { PlayerComponent } from './components/player/player.component';
 import { TeamListComponent } from './components/team-list/team-list.component';
 import { TeamComponent } from './components/team/team.component';
 import { HomeComponent } from './components/home/home.component';
+import { FranchiseComponent } from './components/franchise/franchise.component';
+import { FranchiseListComponent } from './components/franchise-list/franchise-list.component';
+import { GameComponent } from './components/game/game.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import { HomeComponent } from './components/home/home.component';
     PlayerComponent,
     TeamListComponent,
     TeamComponent,
-    HomeComponent
+    HomeComponent,
+    FranchiseComponent,
+    GameComponent,
+    FranchiseListComponent
   ],
   imports: [
     BrowserModule,
