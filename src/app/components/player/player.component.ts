@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Player } from '../../models/player';
+import { DatabaseService } from '../../services/database.service';
 
 @Component({
   selector: 'app-player',
@@ -7,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlayerComponent implements OnInit {
 
-  constructor() { }
+  playerId: string|number;
+
+  constructor(private route: ActivatedRoute, private dbService: DatabaseService) {
+
+  }
 
   ngOnInit(): void {
+
+  		this.route.params.subscribe( data => {
+  			this.playerId = Number(data.id);
+  		});
+
   }
 
 }

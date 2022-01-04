@@ -6,8 +6,18 @@
       </button>
       <span class="app-title">{{title}}</span>
     </div>
+    <div class="header-search-container" *ngIf="searchEnabled">
+      <mat-form-field appearance="fill">
+        <input type="text" placeholder="Search for teams, players, and more" matInput [formControl]="searchControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let result of searchResults$ | async" [value]="result">
+            {{result}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
     <div>
-      <button mat-icon-button aria-label="Search">
+      <button mat-icon-button aria-label="Search" (click)="toggleSearch()">
         <mat-icon>search</mat-icon>
       </button>
       <button mat-icon-button aria-label="Quick Menu" [matMenuTriggerFor]="appQuickMenu">

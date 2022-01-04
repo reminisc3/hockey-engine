@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, of } from 'rxjs';
+import { Observable, Subject, of, from } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 import { DatabaseService } from './database.service'
 
 export interface SearchResult {
@@ -18,11 +19,28 @@ export class SearchService {
 
   search(query: string) {
 
+    query = (query || '').trim().toLowerCase();
+
+    if (!query) {
+      this.searchResults$.next([]);
+      return;
+    }
+
     this.searchResults = [];
 
     //TOO: Search DB here
+    let db = this.dbService.getDatabase();
 
-    this.searchResults$.next(this.searchResults);
+    Promise.all([
+      db.teams.filter(team => {
+        return (team.name.toLowerCase().indexOf(query) >= 0);
+      }).toArray(),
+      db.players.filter(player => {
+        return (player.fullName.toLowerCase().indexOf(query) >= 0);
+      }).toArray()],
+    ).then(result => {
+      console.warn(result);
+    });
 
   }
 

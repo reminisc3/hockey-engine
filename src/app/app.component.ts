@@ -1,6 +1,9 @@
 import { Component, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { Subject } from 'rxjs';
 import { DatabaseService } from './services/database.service';
+import { SearchService, SearchResult } from './services/search.service';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +15,16 @@ export class AppComponent {
   title = 'HockeyEngine';
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
+  searchControl = new FormControl();
+  searchEnabled: boolean = false;
+  searchResults$ = new Subject<SearchResult[]>();
 
-  constructor(private db: DatabaseService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(
+    private db: DatabaseService,
+    private searchService: SearchService,
+    changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher
+  ) {
 
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -31,8 +42,23 @@ export class AppComponent {
 
   }
 
+  ngOnInit() {
+
+    //So we do not have to expose SearchService to public
+    this.searchResults$ = this.searchService.searchResults$;
+
+    this.searchControl.valueChanges.subscribe(query => {
+      this.searchService.search(query);
+    });
+
+  }
+
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+
+  toggleSearch() {
+    this.searchEnabled = !this.searchEnabled;
   }
 
   exportDatabase() {
@@ -40,10 +66,6 @@ export class AppComponent {
       const url = window.URL.createObjectURL(blob);
       window.open(url);
     });
-  }
-
-  ngOnInit() {
-
   }
 
 }

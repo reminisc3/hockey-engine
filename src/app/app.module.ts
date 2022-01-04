@@ -9,6 +9,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
 /** Material UI **/
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
@@ -17,6 +18,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input'
 
 /** HockeyEngine**/
 import { DatabaseService } from './services/database.service';
@@ -45,6 +49,7 @@ import { HomeComponent } from './components/home/home.component';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 
     /** Material UI Imports **/
+    FormsModule, ReactiveFormsModule,
     FlexLayoutModule,
     MatMenuModule,
     MatIconModule,
@@ -53,6 +58,9 @@ import { HomeComponent } from './components/home/home.component';
     MatTableModule,
     MatSidenavModule,
     MatListModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule,
 
     /** Routing **/
     AppRoutingModule,

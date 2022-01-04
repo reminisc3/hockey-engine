@@ -37,6 +37,10 @@ export class DatabaseService {
     }) as HockeyEngineDB;
   }
 
+  getDatabase(): HockeyEngineDB {
+    return this.db;
+  }
+
   rebuildDatabase() {
 
   }
