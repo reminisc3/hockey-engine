@@ -6,7 +6,7 @@
       </button>
       <span class="app-title">{{title}}</span>
     </div>
-    <div class="header-search-container" *ngIf="searchEnabled" fxFlex="50">
+    <div class="header-search-container" *ngIf="searchEnabled" fxHide.xs fxFlex="50">
       <mat-form-field appearance="fill">
         <input type="text" placeholder="Search for teams, players, and more" matInput [formControl]="searchControl" [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete">
@@ -31,6 +31,16 @@
       </mat-menu>
     </div>
   </mat-toolbar>
+  <div class="header-search-container" *ngIf="searchEnabled" fxShow fxHide.gt-sm>
+    <mat-form-field appearance="fill">
+      <input type="text" placeholder="Search for teams, players, and more" matInput [formControl]="searchControl" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let result of searchResults$ | async" [value]="result">
+          {{result}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
   <mat-sidenav-container class="app-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
     <mat-sidenav #appSideNav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-nav-list>
@@ -50,6 +60,14 @@
         <a mat-list-item routerLink="/players">
           <mat-icon matListIcon>person</mat-icon>
           <h4 matLine>Players</h4>
+        </a>
+        <a mat-list-item routerLink="/game">
+          <mat-icon matListIcon>sports_esports</mat-icon>
+          <h4 matLine>Sim Game</h4>
+        </a>
+        <a mat-list-item routerLink="/settings">
+          <mat-icon matListIcon>settings</mat-icon>
+          <h4 matLine>Settings</h4>
         </a>
       </mat-nav-list>
     </mat-sidenav>

@@ -8,13 +8,31 @@ NHL style hockey simulation engine written in Angular and Material UI. Currently
 
 ## Getting Started
 
-TBD
+### Building the app
+
+1. Install latest version of [NodeJS](https://nodejs.org/)
+2. Clone the repo to your machine
+3. Run `npm install`
+4. Run `npm build prod`
+
+### Running the app
+
+1. Run `ng serve --configuration production`
+
+### Deploying the app
+
+The entire app runs in the browser so there is no need for any advanced server configuration.
+
+1. Run `npm build prod`
+2. Copy contents of /public directory to server
 
 ## Serverless Database
 
-This project aims to use IndexedDB as a NoSQL solution to store all application data. This means that you can "play" from anywhere using any supported browser.
+This project uses IndexedDB as a NoSQL solution to store all application data. This means that you can "play" from anywhere using any supported browser. Currently, we are using [Dexie.JS](https://dexie.org/) which is an IndexedDB wrapper.
+
+Eventually, there may be plans to add functionality to sync data to a database server.
 
 ## Credits
 
-Special thanks to dword4 for documenting the NHL REST APIs:
-https://gitlab.com/dword4/nhlapi
+- [Dexie.JS](https://dexie.org/) for having an awesome IndexedDB wrapper
+- dword4 for [documenting](https://gitlab.com/dword4/nhlapi) the NHL REST APIs:

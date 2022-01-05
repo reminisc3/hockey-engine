@@ -7,6 +7,8 @@ import { FranchiseComponent } from './components/franchise/franchise.component';
 import { FranchiseListComponent } from './components/franchise-list/franchise-list.component';
 import { PlayerComponent } from './components/player/player.component';
 import { PlayerListComponent } from './components/player-list/player-list.component';
+import { GameComponent } from './components/game/game.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,7 +18,9 @@ const routes: Routes = [
   { path: 'player/:id', component: PlayerComponent },
   { path: 'players', component: PlayerListComponent },
   { path: 'franchise', component: FranchiseListComponent },
-  { path: 'franchise/:id', component: FranchiseComponent }
+  { path: 'franchise/:id', component: FranchiseComponent },
+  { path: 'game', component: GameComponent },
+  { path: 'settings', component: SettingsComponent }
 ];
 
 @NgModule({

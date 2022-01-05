@@ -35,6 +35,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FranchiseComponent } from './components/franchise/franchise.component';
 import { FranchiseListComponent } from './components/franchise-list/franchise-list.component';
 import { GameComponent } from './components/game/game.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { GameComponent } from './components/game/game.component';
     HomeComponent,
     FranchiseComponent,
     GameComponent,
-    FranchiseListComponent
+    FranchiseListComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
