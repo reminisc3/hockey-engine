@@ -9,6 +9,7 @@ export class PlayerAttributes {
   speed: number = 50;
   agility: number = 50;
   strength: number = 50;
+  durability: number = 50;
   shooting: number = 50;
   passing: number = 50;
   stickHandling: number = 50;
