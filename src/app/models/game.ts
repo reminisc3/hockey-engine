@@ -1,5 +1,4 @@
 export class Game {
-
   date: Date = new Date();
   shots: number = 0;
   goals: number = 0;
@@ -8,5 +7,4 @@ export class Game {
   hits: number = 0;
   blocks: number = 0;
   faceoffs: number = 0;
-
 }
