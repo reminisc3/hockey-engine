@@ -20,12 +20,15 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input'
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 /** HockeyEngine**/
 import { DatabaseService } from './services/database.service';
 import { NhlApiService } from './services/nhl-api.service';
 import { SearchService } from './services/search.service';
+import { GameService } from './services/game.service';
+import { AiService } from './services/ai.service';
 
 import { PlayerListComponent } from './components/player-list/player-list.component';
 import { PlayerComponent } from './components/player/player.component';
@@ -69,6 +72,7 @@ import { SettingsComponent } from './components/settings/settings.component';
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
 
     /** Routing **/
     AppRoutingModule,
@@ -82,7 +86,9 @@ import { SettingsComponent } from './components/settings/settings.component';
   providers: [
     DatabaseService,
     NhlApiService,
-    SearchService
+    SearchService,
+    GameService,
+    AiService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,1 +1,32 @@
-<p>game works!</p>
+<h1 class="mat-headline">Simulate Game</h1>
+<div fxLayout="row wrap" fxLayoutGap="1em">
+  <div>
+    <form>
+      <h4 class="mat-h4">Select Home Team</h4>
+      <mat-form-field appearance="fill">
+        <mat-label>Home Team</mat-label>
+        <mat-select [(ngModel)]="homeTeam" name="homeTeam">
+          <mat-option *ngFor="let team of teams" [value]="team">
+            {{team.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
+  <div>
+    <form>
+      <h4 class="mat-h4">Select Away Team</h4>
+      <mat-form-field appearance="fill">
+        <mat-label>Away Team</mat-label>
+        <mat-select [(ngModel)]="awayTeam" name="awayTeam">
+          <mat-option *ngFor="let team of teams" [value]="team">
+            {{team.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
+</div>
+<div>
+  <button mat-raised-button color="primary" (click)="simulate()" [disabled]="!canSimulate()">Simulate</button>
+</div>

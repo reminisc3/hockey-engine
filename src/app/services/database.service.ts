@@ -94,6 +94,10 @@ export class DatabaseService {
     return this.db.teams.orderBy('name').toArray();
   }
 
+  getTeam(teamId: number|string): Promise<dataModel.Team> {
+    return this.db.teams.where({id: teamId}).first();
+  }
+
   getRoster(teamId: number|string): Promise<dataModel.Player[]> {
     return this.db.players.where({teamId: teamId}).sortBy('lastName');
   }

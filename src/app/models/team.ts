@@ -1,4 +1,6 @@
 import { Division } from './division';
+import { Player } from './player';
+import { DatabaseService } from '../services/database.service';
 
 export class Team {
   id: number;
@@ -33,4 +35,13 @@ export class Team {
   officialSiteUrl?: string;
   franchiseId: number;
   active?: boolean;
+
+  constructor(private dbService: DatabaseService) {
+
+  }
+
+  getRoster(): Promise<Player[]> {
+    return this.dbService.getRoster(this.id);
+  }
+
 }

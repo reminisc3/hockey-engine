@@ -1,15 +1,40 @@
-<div class="app-container" fxLayout="column" fxFlexFill [class.app-mobile]="mobileQuery.matches">
-  <mat-toolbar color="primary" class="app-toolbar" fxLayout="row" fxLayoutAlign="start center">
-    <div fxLayout="row" fxLayoutAlign="start center" fxFlex>
-      <button mat-icon-button aria-label="App Menu" (click)="appSideNav.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <button mat-icon-button aria-label="App Menu" (click)="appSideNav.toggle()">
-        <mat-icon matListIcon>sports_hockey</mat-icon>
-      </button>
-      <span class="app-title">{{title}}</span>
-    </div>
-    <div class="header-search-container" *ngIf="searchEnabled" fxHide.xs fxFlex="50">
+  <div class="app-container" fxLayout="column" fxFlexFill [class.app-mobile]="mobileQuery.matches">
+    <mat-toolbar color="primary" class="app-toolbar" fxLayout="row" fxLayoutAlign="start center">
+      <div fxLayout="row" fxLayoutAlign="start center" fxFlex>
+        <button mat-icon-button aria-label="App Menu" (click)="appSideNav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <button mat-icon-button aria-label="App Menu" (click)="appSideNav.toggle()">
+          <mat-icon matListIcon>sports_hockey</mat-icon>
+        </button>
+        <span class="app-title">{{title}}</span>
+      </div>
+      <div class="header-search-container" *ngIf="searchEnabled" fxHide.xs fxFlex="50">
+        <mat-form-field appearance="fill">
+          <input type="text" placeholder="Search for teams, players, and more" matInput [formControl]="searchControl" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let result of searchResults$ | async" [value]="result">
+              {{result}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-icon-button aria-label="Search" (click)="toggleSearch()">
+          <mat-icon>search</mat-icon>
+        </button>
+        <button mat-icon-button aria-label="Quick Menu" [matMenuTriggerFor]="appQuickMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #appQuickMenu="matMenu">
+          <button (click)="exportDatabase()" mat-menu-item>
+            <mat-icon>download</mat-icon>
+            <span>Export Database</span>
+          </button>
+        </mat-menu>
+      </div>
+    </mat-toolbar>
+    <div class="header-search-container" *ngIf="searchEnabled" fxShow fxHide.gt-sm>
       <mat-form-field appearance="fill">
         <input type="text" placeholder="Search for teams, players, and more" matInput [formControl]="searchControl" [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete">
@@ -19,63 +44,38 @@
         </mat-autocomplete>
       </mat-form-field>
     </div>
-    <div>
-      <button mat-icon-button aria-label="Search" (click)="toggleSearch()">
-        <mat-icon>search</mat-icon>
-      </button>
-      <button mat-icon-button aria-label="Quick Menu" [matMenuTriggerFor]="appQuickMenu">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #appQuickMenu="matMenu">
-        <button (click)="exportDatabase()" mat-menu-item>
-          <mat-icon>download</mat-icon>
-          <span>Export Database</span>
-        </button>
-      </mat-menu>
-    </div>
-  </mat-toolbar>
-  <div class="header-search-container" *ngIf="searchEnabled" fxShow fxHide.gt-sm>
-    <mat-form-field appearance="fill">
-      <input type="text" placeholder="Search for teams, players, and more" matInput [formControl]="searchControl" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let result of searchResults$ | async" [value]="result">
-          {{result}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+    <mat-sidenav-container class="app-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+      <mat-sidenav #appSideNav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+        <mat-nav-list>
+          <h3 matSubheader>Menu</h3>
+          <a mat-list-item routerLink="/">
+            <mat-icon matListIcon>home</mat-icon>
+            <h4 matLine>Home</h4>
+          </a>
+          <a mat-list-item routerLink="/franchise">
+            <mat-icon matListIcon>emoji_events</mat-icon>
+            <h4 matLine>Franchise Mode</h4>
+          </a>
+          <a mat-list-item routerLink="/teams">
+            <mat-icon matListIcon>groups</mat-icon>
+            <h4 matLine>Teams</h4>
+          </a>
+          <a mat-list-item routerLink="/players">
+            <mat-icon matListIcon>person</mat-icon>
+            <h4 matLine>Players</h4>
+          </a>
+          <a mat-list-item routerLink="/game">
+            <mat-icon matListIcon>sports_esports</mat-icon>
+            <h4 matLine>Sim Game</h4>
+          </a>
+          <a mat-list-item routerLink="/settings">
+            <mat-icon matListIcon>settings</mat-icon>
+            <h4 matLine>Settings</h4>
+          </a>
+        </mat-nav-list>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <router-outlet></router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
   </div>
-  <mat-sidenav-container class="app-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav #appSideNav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
-      <mat-nav-list>
-        <h3 matSubheader>Menu</h3>
-        <a mat-list-item routerLink="/">
-          <mat-icon matListIcon>home</mat-icon>
-          <h4 matLine>Home</h4>
-        </a>
-        <a mat-list-item routerLink="/franchise">
-          <mat-icon matListIcon>emoji_events</mat-icon>
-          <h4 matLine>Franchise Mode</h4>
-        </a>
-        <a mat-list-item routerLink="/teams">
-          <mat-icon matListIcon>groups</mat-icon>
-          <h4 matLine>Teams</h4>
-        </a>
-        <a mat-list-item routerLink="/players">
-          <mat-icon matListIcon>person</mat-icon>
-          <h4 matLine>Players</h4>
-        </a>
-        <a mat-list-item routerLink="/game">
-          <mat-icon matListIcon>sports_esports</mat-icon>
-          <h4 matLine>Sim Game</h4>
-        </a>
-        <a mat-list-item routerLink="/settings">
-          <mat-icon matListIcon>settings</mat-icon>
-          <h4 matLine>Settings</h4>
-        </a>
-      </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>
