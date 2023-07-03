@@ -1,5 +1,5 @@
 import { Component, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Subject } from 'rxjs';
 import { DatabaseService } from './services/database.service';
@@ -15,7 +15,7 @@ export class AppComponent {
   title = 'HockeyEngine';
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
-  searchControl = new FormControl();
+  searchControl = new UntypedFormControl();
   searchEnabled: boolean = false;
   searchResults$ = new Subject<SearchResult[]>();
 
