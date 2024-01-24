@@ -75,10 +75,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "hockey-engine:build:production"
+              "buildTarget": "hockey-engine:build:production"
             },
             "development": {
-              "browserTarget": "hockey-engine:build:development"
+              "buildTarget": "hockey-engine:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -86,7 +86,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "hockey-engine:build"
+            "buildTarget": "hockey-engine:build"
           }
         },
         "test": {
