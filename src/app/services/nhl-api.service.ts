@@ -11,7 +11,7 @@ import { Division } from '../models/division';
 })
 export class NhlApiService {
 
-  private apiUrl: string = 'https://statsapi.web.nhl.com/api/v1';
+  private apiUrl: string = '/api/nhl';
 
   constructor(private http: HttpClient) { }
 

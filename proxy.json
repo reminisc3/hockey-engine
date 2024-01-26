@@ -1,0 +1,7 @@
+{
+    "/api/nhl": {
+      "target": "https://api-web.nhle.com",
+      "secure": false,
+      "changeOrigin": true
+    }
+  }
