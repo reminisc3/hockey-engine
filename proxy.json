@@ -1,7 +1,18 @@
 {
-    "/api/nhl": {
-      "target": "https://api-web.nhle.com",
-      "secure": false,
-      "changeOrigin": true
-    }
+    "/api-web/nhl/": {
+      "target": "https://api-web.nhle.com/v1",
+      "secure": true,
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/api-web/nhl": ""
+      }
+    },
+    "/api/nhl/": {
+        "target": "https://api.nhle.com",
+        "secure": true,
+        "changeOrigin": true,
+        "pathRewrite": {
+          "^/api/nhl": ""
+        }
+      }
   }

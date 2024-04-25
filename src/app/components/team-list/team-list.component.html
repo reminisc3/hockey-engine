@@ -1,24 +1,24 @@
 <table mat-table [dataSource]="teams" class="mat-elevation-z8">
 
 	<!-- Team Name column -->
-	<ng-container matColumnDef="teamName">
+	<ng-container matColumnDef="fullName">
 		<mat-header-cell *matHeaderCellDef> Team Name </mat-header-cell>
 		<mat-cell *matCellDef="let element">
-			<a [routerLink]="['/team', element.id]">{{element.name}}</a>
+			<a [routerLink]="['/team', element.franchiseId]">{{element.fullName}}</a>
 		</mat-cell>
 	</ng-container>
 
 	<ng-container matColumnDef="conference">
 		<mat-header-cell *matHeaderCellDef> Conference </mat-header-cell>
 		<mat-cell *matCellDef="let element">
-			{{element.conference.name}}
+			<!-- {{element.conference.name}} -->
 		</mat-cell>
 	</ng-container>
 
 	<ng-container matColumnDef="division">
 		<mat-header-cell *matHeaderCellDef> Division </mat-header-cell>
 		<mat-cell *matCellDef="let element">
-			{{element.division.name}}
+			<!-- {{element.division.name}} -->
 		</mat-cell>
 	</ng-container>
 

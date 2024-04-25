@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { from, of } from 'rxjs';
-import { switchMap, mergeMap, map, toArray, take } from 'rxjs/operators';
-import Dexie, { Table, liveQuery } from 'dexie';
+import { mergeMap } from 'rxjs/operators';
+import { liveQuery } from 'dexie';
 import "dexie-export-import";
 import { NhlApiService } from './nhl-api.service';
 import { HockeyEngineDB } from '../../db/db';
@@ -13,11 +13,11 @@ import * as dataModel from '../models/models';
 })
 export class DatabaseService {
 
-  private db: HockeyEngineDB;
-  teams$ = liveQuery(() => this.db.teams.toArray());
+  private db: HockeyEngineDB = new HockeyEngineDB();
+  teams$ = liveQuery<dataModel.Team[]>(() => this.db.teams.toArray());
 
   constructor(private http: HttpClient, private nhlService: NhlApiService) {
-    this.db = new HockeyEngineDB();
+    
   }
 
   //TODO
@@ -51,13 +51,21 @@ export class DatabaseService {
     });
   }
 
+  seedTeamPlayers(id: string) {
+    this.nhlService.getRoster(id).subscribe(players => {
+
+    });
+  }
+
   seedPlayers() {
     from(this.getTeams()).pipe(
-      mergeMap(teams => teams),
-      mergeMap(team => this.nhlService.getRoster(team.id)),
+      mergeMap(teams => teams.filter(x => x.triCode)),
+      mergeMap(team => this.nhlService.getRoster(team.triCode)),
       mergeMap(players => {
 
-        let ids = of(players.map(player => player.person.id));
+        console.warn(players);
+
+        let ids = of(players.map(player => player.id));
 
         return ids.pipe(
           mergeMap(id => id),
@@ -91,7 +99,7 @@ export class DatabaseService {
   }
 
   getTeams(): Promise<dataModel.Team[]> {
-    return this.db.teams.orderBy('name').toArray();
+    return this.db.teams.orderBy('fullName').toArray();
   }
 
   getTeam(teamId: number|string): Promise<dataModel.Team> {
@@ -99,7 +107,7 @@ export class DatabaseService {
   }
 
   getRoster(teamId: number|string): Promise<dataModel.Player[]> {
-    return this.db.players.where({teamId: teamId}).sortBy('lastName');
+    return this.db.players.where({franchiseId: teamId}).sortBy('lastName');
   }
 
 }

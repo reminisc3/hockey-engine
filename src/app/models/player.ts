@@ -2,15 +2,11 @@ import { Position } from './position';
 import { PlayerAttributes } from './player-attributes';
 
 export class Player {
-  person?: {
-    id: number | string,
-    fullName: string,
-    link?: string
-  };
   id: number;
   teamId?: number;
   active: boolean;
   fullName: string;
+  headshot: string;
   link?: string;
   imageUrl?: string;
   actionImageUrl?: string;
@@ -18,6 +14,7 @@ export class Player {
   lastName: string;
   primaryNumber: number | string;
   jerseyNumber: number | string;
+  sweaterNumber: number;
   birthDate: Date | string;
   currentAge: number;
   birthCity: string;
@@ -25,7 +22,11 @@ export class Player {
   birthCountry: string;
   nationality: string;
   height: number | string;
+  heightInCentimeters: number;
+  heightInInches: number;
   weight: number;
+  weightInKilograms: number;
+  weightInPounds: number;
   alternateCaptain: boolean;
   captain: boolean;
   rookie: boolean;
@@ -36,6 +37,7 @@ export class Player {
     name: string;
     link?: string;
   };
+  positionCode: string;
   primaryPosition: Position;
   totalCups?: number;
   morale?: number;

@@ -12,8 +12,8 @@ export class HockeyEngineDB extends Dexie {
 
     super('HockeyEngine');
     this.version(1).stores({
-      players: 'id,teamId,lastName',
-      teams: 'id,teamName,name',
+      players: 'id,franchiseId,teamId,lastName',
+      teams: 'id,franchiseId,fullName,teamName,name',
       coaches: 'id,lastName',
       divisions: 'id'
     });

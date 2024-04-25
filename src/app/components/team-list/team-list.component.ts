@@ -10,7 +10,7 @@ import { Team } from '../../models/team';
 export class TeamListComponent implements OnInit {
 
 	teams: Team[] = [];
-	displayedColumns: string[] = ['teamName', 'conference', 'division'];
+	displayedColumns: string[] = ['fullName', 'conference', 'division'];
 
 	constructor(private dbService: DatabaseService) { }
 

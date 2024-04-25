@@ -5,6 +5,11 @@ import { DatabaseService } from '../services/database.service';
 export class Team {
   id: number;
 	name: string;
+  fullName: string;
+  franchiseId: number;
+  leagueId: number;
+  rawTriCode: string;
+  triCode: string;
 	link?: string;
 	venue: {
 		name: string;
@@ -33,7 +38,6 @@ export class Team {
   };
   shortName: string;
   officialSiteUrl?: string;
-  franchiseId: number;
   active?: boolean;
 
   constructor(private dbService: DatabaseService) {

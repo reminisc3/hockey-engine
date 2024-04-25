@@ -12,11 +12,16 @@ import { Division } from '../models/division';
 export class NhlApiService {
 
   private apiUrl: string = '/api/nhl';
+  private apiWebUrl: string = '/api-web/nhl';
 
   constructor(private http: HttpClient) { }
 
   getTeams(): Observable<Team[]> {
-    return this.http.get(this.apiUrl + '/teams').pipe(map(data => data['teams']));
+    return this.http.get(this.apiUrl + '/stats/rest/en/team').pipe(map((data: any) => data.data));
+  }
+
+  getFranchises(): Observable<Team[]> {
+    return this.http.get(this.apiUrl + '/stats/rest/en/franchise').pipe(map((data: any) => data.data));
   }
 
   getTeam(id: number): Observable<Team> {
@@ -24,11 +29,11 @@ export class NhlApiService {
   }
 
   getRoster(teamId: number|string): Observable<Player[]> {
-    return this.http.get<Player[]>(this.apiUrl + '/teams/' + teamId + '/roster').pipe(map(data => data['roster']));
+    return this.http.get<Player[]>(this.apiWebUrl + '/roster/' + teamId + '/20232024').pipe(map((data: any) => [data.forwards,data.defensemen,data.goalies].flatMap(x => x) as Player[]));
   }
 
   getPlayer(personId: number|string): Observable<Player> {
-    return this.http.get<Player>(this.apiUrl + '/people/' + personId).pipe(map(data => data['people'][0]));
+    return this.http.get<Player>(`${this.apiWebUrl}/player/${personId}/landing`).pipe(map(data => data));
   }
 
   getDivisions(): Observable<Division[]> {

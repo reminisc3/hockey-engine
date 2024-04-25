@@ -35,4 +35,5 @@ Eventually, there may be plans to add functionality to sync data to a database s
 ## Credits
 
 - [Dexie.JS](https://dexie.org/) for having an awesome IndexedDB wrapper
-- dword4 for [documenting](https://gitlab.com/dword4/nhlapi) the NHL REST APIs:
+- dword4 for [documenting](https://gitlab.com/dword4/nhlapi) the NHL REST APIs
+- Zmalski for [documenting](https://github.com/Zmalski/NHL-API-Reference?tab=readme-ov-file#get-team-information) the NHL REST APIs
