@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -22,6 +22,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 /** HockeyEngine**/
 import { DatabaseService } from './services/database.service';
@@ -39,6 +41,9 @@ import { FranchiseComponent } from './components/franchise/franchise.component';
 import { FranchiseListComponent } from './components/franchise-list/franchise-list.component';
 import { GameComponent } from './components/game/game.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { proxyInterceptor } from './interceptors/proxy.interceptor';
+import { LoadingService } from './services/loading.service';
+import { httpInterceptor } from './interceptors/http.interceptor';
 
 @NgModule({
   declarations: [
@@ -55,7 +60,6 @@ import { SettingsComponent } from './components/settings/settings.component';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 
@@ -73,6 +77,8 @@ import { SettingsComponent } from './components/settings/settings.component';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatExpansionModule,
+    MatProgressBarModule,
 
     /** Routing **/
     AppRoutingModule,
@@ -88,7 +94,14 @@ import { SettingsComponent } from './components/settings/settings.component';
     NhlApiService,
     SearchService,
     GameService,
-    AiService
+    AiService,
+    LoadingService,
+    provideHttpClient(
+      withInterceptors([
+        httpInterceptor,
+        proxyInterceptor
+      ])
+    )
   ],
   bootstrap: [AppComponent]
 })

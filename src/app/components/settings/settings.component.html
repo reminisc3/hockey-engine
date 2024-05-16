@@ -1,1 +1,37 @@
-<p>settings works!</p>
+<h2>Settings</h2>
+
+<mat-accordion multi>
+
+    <!-- BASIC SETTINGS -->
+    <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Basic
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Advanced Settings
+            </mat-panel-title>
+            <mat-panel-description>
+
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <h3>NHL API</h3>
+
+        <mat-action-list>
+            <mat-list-item (click)="onSyncAll()">
+                <mat-icon matListItemIcon>import_export</mat-icon>
+                <div matListItemTitle>Import All Data from NHL API</div>
+            </mat-list-item>
+        </mat-action-list>
+
+    </mat-expansion-panel>
+</mat-accordion>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-settings',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private db: DatabaseService) { }
 
   ngOnInit(): void {
+    
+  }
+
+  onSyncAll() {
+    this.db.seedAll();
+  }
+
+  onSyncTeams() {
+    
+  }
+
+  onSyncPlayers() {
+    
   }
 
 }

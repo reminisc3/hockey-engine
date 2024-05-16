@@ -1,9 +1,14 @@
-import { Component, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { Subject } from 'rxjs';
+import { Observable, Subject, take } from 'rxjs';
 import { DatabaseService } from './services/database.service';
 import { SearchService, SearchResult } from './services/search.service';
+import { environment } from 'src/environments/environment';
+import { NhlApiService } from './services/nhl-api.service';
+import { Team } from './models/team';
+import { Player } from './models/player';
+import { LoadingService } from './services/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +26,9 @@ export class AppComponent {
 
   constructor(
     private db: DatabaseService,
+    private nhlApi: NhlApiService,
     private searchService: SearchService,
+    public loadingService: LoadingService,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher
   ) {
@@ -29,16 +36,6 @@ export class AppComponent {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
-
-    //Seed Teams from NHL API
-    db.getTeams().then(teams => {
-      if (teams.length == 0) {
-        db.seedTeams();
-      }
-    });
-
-    //Seed Players from NHL API
-    db.seedPlayers();
 
   }
 

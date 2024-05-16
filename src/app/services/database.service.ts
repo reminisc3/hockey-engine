@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { from, of } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { Observable, Subject, combineLatest, of, combineLatestAll, ObservableInput } from 'rxjs';
+import { concatAll, map, take } from 'rxjs/operators';
 import { liveQuery } from 'dexie';
 import "dexie-export-import";
 import { NhlApiService } from './nhl-api.service';
 import { HockeyEngineDB } from '../../db/db';
 import * as dataModel from '../models/models';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -45,56 +46,116 @@ export class DatabaseService {
 
   }
 
-  seedTeams() {
+  seedTeams(): Observable<dataModel.Team[]> {
+    let dbSubject = new Subject<dataModel.Team[]>();
     this.nhlService.getTeams().subscribe(teams => {
-      this.db.teams.bulkPut(teams);
+      this.db.teams.bulkPut(teams).then(result => {
+        dbSubject.next(teams); 
+      });
     });
+    return dbSubject.asObservable();
   }
 
-  seedTeamPlayers(id: string) {
-    this.nhlService.getRoster(id).subscribe(players => {
+  seedTeamPlayers(id: number|string): Observable<dataModel.Player[]> {
+
+    let dbSubject = new Subject<dataModel.Player[]>();
+    let playerHttpReqs: Observable<dataModel.Player>[] = [];
+
+    this.nhlService.getRoster(id).pipe(take(1)).subscribe(players => {
+
+      players.forEach((player,index) => {
+
+        player.teamId = id;
+
+        //MASSAGE PLAYER ATTRIBUTES AND ELIMINATE NESTED OBJECTS
+        Object.keys(player).forEach(fieldName => {
+          let field = player[fieldName];
+          if(typeof field === 'object' && field.default) {
+            field = field.default || field || '';
+          }
+          players[index][fieldName] = field;
+        });
+
+        playerHttpReqs.push(this.nhlService.getPlayer(player.id));
+
+      });
+
+      //GET MORE ADVANCED DATA FOR EACH PLAYER
+      const players$ = of(...playerHttpReqs).pipe(concatAll()).pipe(map(playerResponse => {
+
+        const playerId = playerResponse.playerId || playerResponse.id;
+
+        let targetPlayer = players.find(x => x.id == playerId);
+        if(targetPlayer) {
+          targetPlayer.draftDetails = playerResponse.draftDetails || targetPlayer.draftDetails || null;
+        }
+        else {
+          console.warn('Unable to process player draft details');
+          console.warn(playerResponse);
+        }
+
+        //STORE SEASON STATS
+        if(playerResponse.seasonTotals instanceof Array) {
+
+          //ADD PLAYER ID TO STATS PRIOR TO INSERT
+          playerResponse.seasonTotals.forEach(stat => {
+            stat.playerId = playerId;
+          });
+
+          this.db.seasonStats.bulkPut(playerResponse.seasonTotals);
+        }
+
+        return playerResponse;
+        
+      }));
+
+      combineLatestAll(players$.forEach).subscribe(() => {
+        console.warn('Processing complete');
+
+        this.db.players.bulkPut(players).then(result => {
+          dbSubject.next(players); 
+        });
+      });
 
     });
+
+    return dbSubject.asObservable();
+
   }
 
-  seedPlayers() {
-    from(this.getTeams()).pipe(
-      mergeMap(teams => teams.filter(x => x.triCode)),
-      mergeMap(team => this.nhlService.getRoster(team.triCode)),
-      mergeMap(players => {
+  seedAll(): Observable<any> {
 
-        console.warn(players);
+    let seedAll$ = new Subject<void>();
 
-        let ids = of(players.map(player => player.id));
+    this.seedTeams().pipe(take(1)).subscribe(teams => {
 
-        return ids.pipe(
-          mergeMap(id => id),
-          mergeMap(async (id) => {
-            let missingIds: (string | number)[] = [];
-            let count = await this.db.players.where({ id: id }).count();
-            if (count == 0) {
-              missingIds.push(id);
-            }
+      //FILTER TO CURRENT TEAMS BASED ON ENV SETTINGS
+      const currentTeams = teams.filter(x => environment.currentTeams.findIndex(y => y.id == x.id) >= 0);
+      currentTeams.sort((a,b) => a.fullName.localeCompare(b.fullName));
 
-            return missingIds;
-          })
-        );
-      }),
-      mergeMap(ids => ids),
-      mergeMap(personId => {
-        return this.nhlService.getPlayer(personId)
-      })
-    ).subscribe(player => {
-      player.teamId = player.teamId || player.currentTeam.id;
-      player.imageUrl = 'https://cms.nhl.bamgrid.com/images/headshots/current/168x168/' + player.id + '.jpg';
-      player.actionImageUrl = 'https://cms.nhl.bamgrid.com/images/actionshots/' + player.id + '.jpg';
-      this.db.players.put(player).then(result => {
-        console.log('Added ' + player.fullName + ' to database');
-      })
+      console.warn(currentTeams);
+
+      let teams$: Array<Observable<dataModel.Player[]>> = [];
+      currentTeams.slice(0,1).forEach(team => {
+
+        if(!team.triCode) {
+          console.warn('Failed to import roster: triCode is missing')
+          console.warn(team);
+          return;
+        }
+
+        teams$.push(this.seedTeamPlayers(team.triCode));
+
+      });
+
+      combineLatest(teams$).pipe(take(1)).subscribe(response => {
+        console.warn('Requests completed');
+        console.warn(response);
+      });
+
     });
-  }
 
-  seedAll() {
+    return seedAll$.asObservable();
 
   }
 
@@ -107,7 +168,7 @@ export class DatabaseService {
   }
 
   getRoster(teamId: number|string): Promise<dataModel.Player[]> {
-    return this.db.players.where({franchiseId: teamId}).sortBy('lastName');
+    return this.db.players.where({teamId: teamId}).sortBy('lastName');
   }
 
 }

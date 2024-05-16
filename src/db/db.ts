@@ -7,14 +7,17 @@ export class HockeyEngineDB extends Dexie {
   teams!: Table<dataModel.Team, number>;
   coaches!: Table<dataModel.Coach, number>;
   divisions!: Table<dataModel.Division, number>;
+  seasonStats!: Table<dataModel.SeasonStats, number>;
 
   constructor() {
 
     super('HockeyEngine');
     this.version(1).stores({
-      players: 'id,franchiseId,teamId,lastName',
-      teams: 'id,franchiseId,fullName,teamName,name',
+      players: 'id,teamId,firstName,lastName,positionCode',
+      teams: 'id,franchiseId,fullName,triCode',
+      seasonStats: 'playerId',
       coaches: 'id,lastName',
+      leagues: 'id,name',
       divisions: 'id'
     });
 

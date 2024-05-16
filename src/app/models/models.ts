@@ -5,6 +5,7 @@ export { Player } from './player';
 export { Position } from './position';
 export { Stadium } from './stadium';
 export { Team } from './team';
+export { SeasonStats } from './season-stats'
 
 // export class Coach;
 // export class Division;

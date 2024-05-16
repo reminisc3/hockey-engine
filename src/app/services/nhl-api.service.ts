@@ -24,12 +24,13 @@ export class NhlApiService {
     return this.http.get(this.apiUrl + '/stats/rest/en/franchise').pipe(map((data: any) => data.data));
   }
 
-  getTeam(id: number): Observable<Team> {
+  getTeam(id: number|string): Observable<Team> {
     return this.http.get<Team>(this.apiUrl + '/team/' + id);
   }
 
   getRoster(teamId: number|string): Observable<Player[]> {
-    return this.http.get<Player[]>(this.apiWebUrl + '/roster/' + teamId + '/20232024').pipe(map((data: any) => [data.forwards,data.defensemen,data.goalies].flatMap(x => x) as Player[]));
+    const currentYear = new Date().getUTCFullYear()-1;
+    return this.http.get<Player[]>(this.apiWebUrl + '/roster/' + teamId + `/${currentYear}${currentYear+1}`).pipe(map((data: any) => [data.forwards,data.defensemen,data.goalies].flatMap(x => x) as Player[]));
   }
 
   getPlayer(personId: number|string): Observable<Player> {

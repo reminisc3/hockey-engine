@@ -1,14 +1,18 @@
 import { Position } from './position';
 import { PlayerAttributes } from './player-attributes';
+import { DraftDetails } from './draft-details';
+import { SeasonStats } from './season-stats';
 
 export class Player {
   id: number;
-  teamId?: number;
+  playerId?: number;
+  teamId?: number|string;
   active: boolean;
   fullName: string;
   headshot: string;
   link?: string;
   imageUrl?: string;
+  heroImage?: string;
   actionImageUrl?: string;
   firstName: string;
   lastName: string;
@@ -32,19 +36,18 @@ export class Player {
   rookie: boolean;
   shootsCatches: string;
   rosterStatus: string | boolean;
-  currentTeam?: {
-    id: number;
-    name: string;
-    link?: string;
-  };
   positionCode: string;
   primaryPosition: Position;
   totalCups?: number;
   morale?: number;
   star?: boolean;
+  superstar?: boolean;
   attributes?: PlayerAttributes;
+  seasonTotals: SeasonStats[];
+  draftDetails?: DraftDetails;
 
   constructor() {
 
   }
+  
 }
