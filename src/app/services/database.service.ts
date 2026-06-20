@@ -109,7 +109,7 @@ export class DatabaseService {
         
       }));
 
-      combineLatestAll(players$.forEach).subscribe(() => {
+      players$.subscribe(() => {
         console.warn('Processing complete');
 
         this.db.players.bulkPut(players).then(result => {

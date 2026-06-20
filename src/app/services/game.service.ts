@@ -9,7 +9,9 @@ export class GameService {
   constructor() { }
 
   simulate(game: Game) {
-    console.warn(game);
+
+    
+
   }
 
 }

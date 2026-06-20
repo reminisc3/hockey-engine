@@ -2,6 +2,7 @@ import { Position } from './position';
 import { PlayerAttributes } from './player-attributes';
 import { DraftDetails } from './draft-details';
 import { SeasonStats } from './season-stats';
+import { GameStats } from './game-stats';
 
 export class Player {
   id: number;
@@ -45,6 +46,7 @@ export class Player {
   attributes?: PlayerAttributes;
   seasonTotals: SeasonStats[];
   draftDetails?: DraftDetails;
+  gameStats?: GameStats;
 
   constructor() {
 
