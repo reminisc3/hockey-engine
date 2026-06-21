@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-franchise-list',
-  templateUrl: './franchise-list.component.html',
-  styleUrls: ['./franchise-list.component.scss']
+    selector: 'app-franchise-list',
+    templateUrl: './franchise-list.component.html',
+    styleUrls: ['./franchise-list.component.scss'],
+    standalone: false
 })
 export class FranchiseListComponent implements OnInit {
 
