@@ -6,9 +6,11 @@
       <mat-form-field appearance="fill">
         <mat-label>Home Team</mat-label>
         <mat-select [(ngModel)]="homeTeam" name="homeTeam">
-          <mat-option *ngFor="let team of teams" [value]="team">
-            {{team.name}}
-          </mat-option>
+          @for (team of teams; track team) {
+            <mat-option [value]="team">
+              {{team.name}}
+            </mat-option>
+          }
         </mat-select>
       </mat-form-field>
     </form>
@@ -19,9 +21,11 @@
       <mat-form-field appearance="fill">
         <mat-label>Away Team</mat-label>
         <mat-select [(ngModel)]="awayTeam" name="awayTeam">
-          <mat-option *ngFor="let team of teams" [value]="team">
-            {{team.name}}
-          </mat-option>
+          @for (team of teams; track team) {
+            <mat-option [value]="team">
+              {{team.name}}
+            </mat-option>
+          }
         </mat-select>
       </mat-form-field>
     </form>
