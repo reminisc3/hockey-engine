@@ -3,7 +3,7 @@
 
 @mixin color($theme) {
     .hero {
-        color: mat.get-color-from-palette(mat.$gray-palette, 700);
+        color: mat.m2-get-color-from-palette(mat.$m2-gray-palette, 700);
     }
 }
 
