@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DatabaseService } from '../../services/database.service';
 import { NhlApiService } from '../../services/nhl-api.service';
 import { Player } from '../../models/player';
@@ -7,6 +7,7 @@ import { Player } from '../../models/player';
     selector: 'app-player-list',
     templateUrl: './player-list.component.html',
     styleUrls: ['./player-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PlayerListComponent implements OnInit {

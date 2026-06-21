@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withInterceptors, withXhr } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -96,7 +96,7 @@ import { httpInterceptor } from './interceptors/http.interceptor';
     GameService,
     AiService,
     LoadingService,
-    provideHttpClient(
+    provideHttpClient(withXhr(), 
       withInterceptors([
         httpInterceptor,
         proxyInterceptor

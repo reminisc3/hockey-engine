@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DatabaseService } from '../../services/database.service';
 import { Team } from '../../models/team';
 
@@ -6,6 +6,7 @@ import { Team } from '../../models/team';
     selector: 'app-team-list',
     templateUrl: './team-list.component.html',
     styleUrls: ['./team-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class TeamListComponent implements OnInit {

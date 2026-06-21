@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Team } from '../../models/team';
 import { DatabaseService } from '../../services/database.service';
 
@@ -6,6 +6,7 @@ import { DatabaseService } from '../../services/database.service';
     selector: 'app-game',
     templateUrl: './game.component.html',
     styleUrls: ['./game.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class GameComponent implements OnInit {
